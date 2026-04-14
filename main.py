@@ -1,6 +1,5 @@
-def main():
-    print("Hello from proyecto124!")
-
-
-if __name__ == "__main__":
-    main()
+import flet as ft
+from controllers.UserController import AuthController
+from controllers.TareaControllers import TareaController
+from views.LoginView import LoginView
+from views.DashboardView import 

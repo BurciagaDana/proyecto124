@@ -19,5 +19,5 @@ app = "main:main"
 package = true 
 
 # Esta seccion es crucial para que Python vea el contenido de src como el nivel raiz
-[tool.setuptools.package_dir]
+[tool.setuptools.package-dir]
 "" = "src"

@@ -1,4 +1,4 @@
-from src.models.TareasModel import TareaModel
+from models.TareaModel import TareaModel
 
 class TareaController:
     def _init_(self):
