@@ -1,7 +1,7 @@
 import flet as ft
 def LoginView(page, auth_controller):
     email_input = ft.TextField(label= "Correo electronico", width=350, border_radius=10)
-    pass_input = ft.TextFiel(label= "Contraseña", password=True, can_reveal_password= True, width=350, border_radius=10)
+    pass_input = ft.TextField(label= "Contraseña", password=True, can_reveal_password= True, width=350, border_radius=10)
     
     def login_click():
         user, msg = auth_controller.login(email_input.value,pass_input.value)
