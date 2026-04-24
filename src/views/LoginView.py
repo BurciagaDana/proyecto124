@@ -5,11 +5,11 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-    # Datos de prueba
+    
     correo_prueba = "player124@gmail.com"
     contraseña_prueba = "1020"
 
-    # Campos de login
+   
     correo = ft.TextField(
         label="Correo electrónico",
         width=280,
@@ -25,14 +25,14 @@ def main(page: ft.Page):
 
     mensaje = ft.Text("")
 
-    # Contenedor dinámico para el contenido central
+    
     contenido_central = ft.Column(
         alignment=ft.MainAxisAlignment.CENTER,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         expand=True
     )
 
-    # Función para mostrar login
+   
     def mostrar_login():
         page.clean()
         sesion = ft.Container(
@@ -65,11 +65,11 @@ def main(page: ft.Page):
         )
         page.add(sesion)
 
-    # Función para mostrar página principal
+    
     def pagina_principal():
         page.clean()
 
-        # Barra de navegación con Inicio y Perfil
+        
         barra_nav = ft.Row(
             alignment=ft.MainAxisAlignment.CENTER,
             controls=[
@@ -79,17 +79,17 @@ def main(page: ft.Page):
             ]
         )
 
-        # Botón de salida
+        
         boton_salida = ft.ElevatedButton(
             "Salir",
             icon=ft.Icons.LOGOUT,
             on_click=lambda e: mostrar_login()
         )
 
-        # Contenido central inicial
+        
         mostrar_inicio(None)
 
-        # Layout principal
+       
         page.add(
             ft.Column(
                 expand=True,
@@ -104,7 +104,7 @@ def main(page: ft.Page):
             )
         )
 
-    # Funciones para cambiar contenido central
+
     def mostrar_inicio(e):
         contenido_central.controls = [
             ft.Text("Bienvenido al sistema", size=30, weight=ft.FontWeight.BOLD)
@@ -118,7 +118,6 @@ def main(page: ft.Page):
         ]
         page.update()
 
-    # Validación login
     def iniciar_sesion(e):
         if correo.value == correo_prueba and contraseña.value == contraseña_prueba:
             pagina_principal()
@@ -127,7 +126,6 @@ def main(page: ft.Page):
             mensaje.color = "red"
             page.update()
 
-    # Mostrar login al inicio
     mostrar_login()
 
 ft.app(target=main)
