@@ -12,7 +12,7 @@ class Database:
         conn = Database.get_connection()
         cursor = conn.cursor()
 
-        # Tabla de usuarios
+        
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS usuarios (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +24,7 @@ class Database:
             )
         """)
 
-        # Tabla de tareas
+        
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS tareas (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
