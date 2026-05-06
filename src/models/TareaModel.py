@@ -1,22 +1,25 @@
+import sqlite3
 from .databaseModel import Database
 
 class TareaModel: 
-    def _init_(self):
+    def __init__(self):
         self.db = Database()
-    
+
     def listar_por_usuario(self, id_usuario):
         conn = self.db.get_connection()
-        cursor = conn.cursor(dictionary= True)
-        query = "SELECT = FROM tareas WHERE id_usuario = %s ORDER BY fecha_limite ASC"
+        conn.row_factory = sqlite3.Row  # permite acceder a columnas por nombre
+        cursor = conn.cursor()
+        query = "SELECT id, titulo, descripcion, prioridad, clasificacion, estado FROM tareas WHERE id_usuario = ? ORDER BY id ASC"
         cursor.execute(query, (id_usuario,))
-        resultado = cursor.fecha11()
+        resultado = [dict(row) for row in cursor.fetchall()]
         conn.close()
         return resultado
     
-    def crear (self, id_usuario, titulo, descripcion, prioridad, clasificacion):
+    def crear(self, id_usuario, titulo, descripcion, prioridad, clasificacion):
         conn = self.db.get_connection()
         cursor = conn.cursor()
-        query = """ INSERT INTO tareas (id_usuario, titulo, descripcion, prioridad, clasificacion) VALUES(%s, %s, %s, %s, %s,)"""
-        cursor.execute(query, (id_usuario, titulo, descripcion, prioridad, clasificacion,))
+        query = """INSERT INTO tareas (id_usuario, titulo, descripcion, prioridad, clasificacion, estado) 
+                   VALUES (?, ?, ?, ?, ?, ?)"""
+        cursor.execute(query, (id_usuario, titulo, descripcion, prioridad, clasificacion, "pendiente"))
         conn.commit()
-        conn.close() 
+        conn.close()

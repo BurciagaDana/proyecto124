@@ -1,11 +1,11 @@
 import flet as ft
-from controllers.UserController import AuthController
+from controllers.UserController import UserController
 from controllers.TareaControllers import TareaController
 from views.LoginView import LoginView
 from views.DashboardView import DashboardView
 
 def start(page: ft.Page):
-    auth_ctrl = AuthController()
+    user_ctrl = UserController()
     task_ctrl = TareaController()
 
     def route_change(e):
@@ -13,7 +13,7 @@ def start(page: ft.Page):
 
         if page.route == "/":
             page.add(ft.Text("Caso 1"))
-            page.views.append(LoginView(page, auth_ctrl))
+            page.views.append(LoginView(page, user_ctrl))
         elif page.route == "/dashboard":
             page.views.append(DashboardView(page, task_ctrl))
         

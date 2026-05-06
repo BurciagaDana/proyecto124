@@ -6,18 +6,24 @@ def DashboardView(page, tarea_controller):
 
     def refresh():
         lista_tareas.controls.clear()
-        for t in tarea_controller.obtener_lista(user['id_usuario']):
+        tareas = tarea_controller.obtener_lista(user['id_usuario'])
+        if not tareas:
             lista_tareas.controls.append(
-                ft.Card(
-                    content=ft.Container(
-                        content=ft.ListTile(
-                            title=ft.Text(t['titulo'], weight="bold"),
-                            subtitle=ft.Text(f"{t['descripcion']}\nPrioridad: {t['prioridad']}"),
-                            trailing=ft.Badge(content=ft.Text(t['estado']), bgcolor=ft.Colors.ORANGE_300)
-                        ), padding=10
+                ft.Text("No tienes tareas registradas.", color="grey", italic=True)
+            )
+        else:
+            for t in tareas:
+                lista_tareas.controls.append(
+                    ft.Card(
+                        content=ft.Container(
+                            content=ft.ListTile(
+                                title=ft.Text(t['titulo'], weight="bold"),
+                                subtitle=ft.Text(f"{t['descripcion']}\nPrioridad: {t['prioridad']}"),
+                                trailing=ft.Badge(content=ft.Text(t['estado']), bgcolor=ft.Colors.ORANGE_300)
+                            ), padding=10
+                        )
                     )
                 )
-            )
         page.update()
 
     txt_titulo = ft.TextField(label="Nueva Tarea", expand=True)
@@ -33,6 +39,9 @@ def DashboardView(page, tarea_controller):
         if success:
             txt_titulo.value = ""
             refresh()
+        else:
+            lista_tareas.controls.append(ft.Text(msg, color="red"))
+            page.update()
 
     return ft.View("/dashboard", [
         ft.AppBar(

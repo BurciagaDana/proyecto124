@@ -1,4 +1,5 @@
 import bcrypt
+import sqlite3
 from .databaseModel import Database
 
 class UsuarioModel:
@@ -14,7 +15,7 @@ class UsuarioModel:
         cursor = conn.cursor()
         try: 
             cursor.execute(
-                "INSERT INTO usuario (nombre, email, password) VALUES (%s, %s, %s)", 
+                "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)", 
                 (usuario_data.nombre, usuario_data.email, hashed_pw.decode('utf-8'))
             )
             conn.commit()
@@ -27,9 +28,10 @@ class UsuarioModel:
                 
     def validar_login(self, email, password):
         conn = self.db.get_connection()
-        cursor = conn.cursor(dictionary=True)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
         
-        cursor.execute("SELECT * FROM usuario WHERE email = %s", (email,))
+        cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email,))
         user = cursor.fetchone()
         
         conn.close()
